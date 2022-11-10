@@ -16,7 +16,5 @@ public interface CarService {
 
     void deleteCar(long id);
 
-    List<Car> findAllByColor(String brand);
-
     List<Car> getCarsByBrand(String brand);
 }

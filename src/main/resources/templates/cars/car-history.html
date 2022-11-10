@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<body>
+<header th:replace="fragments :: header"></header>
+<div class="col-6">
+    <h2 class="headerText">No history:</h2>
+    <h3 th:unless="${repairsDone} and ${repairsDone.size()}">There is no history for this car!</h3>
+    <table th:if="${repairsDone.size()>0}" class="table-template">
+        <th>Car</th>
+        <th>Car Shop</th>
+        <th>Service Type</th>
+        <th>Repairman</th>
+        <th>Date Started</th>
+        <th>Date Done</th>
+        <tr th:each="repairDone : ${repairsDone}">
+            <td th:text="${repairDone.car.brand}"></td>
+            <td th:text="${repairDone.carShop.name}"></td>
+            <td th:text="${repairDone.serviceType.serviceType}"></td>
+            <td th:text="${repairDone.repairman.name}"></td>
+            <td th:text="${repairDone.dateStarted}"></td>
+            <td th:text="${repairDone.dateDone}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.example.carshop.controllers.api.shop;
 
+import com.example.carshop.data.entity.CarShop;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class CarShopApiController {
 
 //    @Autowired
-//    private final Car carService;
+//    private final CarShop carShop;
 
 
 //    @GetMapping(value = "/api/car")

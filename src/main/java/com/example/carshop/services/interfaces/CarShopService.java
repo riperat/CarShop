@@ -6,17 +6,17 @@ import com.example.carshop.data.entity.CarShop;
 import java.util.List;
 
 public interface CarShopService {
-    List<Car> getShops();
+    List<CarShop> getShops();
 
-    Car getShop(long id);
+    CarShop getShop(long id);
 
-    Car create(CarShop carShop);
+    CarShop create(CarShop carShop);
 
-    Car updateShop(long id, CarShop carShop);
+    CarShop updateShop(long id, CarShop carShop);
 
     void deleteShop(long id);
 
-    List<Car> findAllByName(String brand);
+    List<CarShop> findAllByName(String name);
 
-    List<Car> findAllByCarPreferences(String brand);
+    List<CarShop> findAllByCarPreferences(String carPreferences);
 }

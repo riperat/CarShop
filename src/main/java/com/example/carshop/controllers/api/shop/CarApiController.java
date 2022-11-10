@@ -15,7 +15,6 @@ public class CarApiController {
     @Autowired
     private final CarService carService;
 
-
     @GetMapping(value = "/api/car")
     public List<Car> getCars() {
         return carService.getCars();

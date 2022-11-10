@@ -1,8 +1,10 @@
 package com.example.carshop.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +28,7 @@ public class Car extends BaseEntity{
 
     private String registrationNumber;
 
-    private Date manufactureDate;
+    private int manufactureYear;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
     private List<Person> people;

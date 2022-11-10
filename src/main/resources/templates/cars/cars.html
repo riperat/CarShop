@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<body>
+<header th:replace="fragments :: header"></header>
+<h2>My cars:</h2>
+<div class="col-6">
+    <h3 th:unless="${cars} and ${cars.size()}">There are no cars!</h3>
+    <table th:if="${cars.size()>0}" class="table-template">
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Color</th>
+        <th>Registration Number</th>
+        <th>Manufacture Year</th>
+        <th>History</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.model}"></td>
+            <td th:text="${car.color}"></td>
+            <td th:text="${car.registrationNumber}"></td>
+            <td th:text="${car.manufactureYear}"></td>
+            <td><a class="btn btn-info" th:href="@{'/cars/car-history/'+${car.id}}">History</a></td>
+            <td><a class="btn btn-info" th:href="@{'/cars/edit-car/'+${car.id}}">Edit</a></td>
+            <td><a class="btn btn-danger" th:href="@{'/cars/delete/'+${car.id}}">Delete</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
