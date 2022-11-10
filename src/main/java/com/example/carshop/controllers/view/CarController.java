@@ -43,11 +43,9 @@ public class CarController {
         return "/cars/edit-car";
     }
 
-    //TODO
     @GetMapping("/car-history/{id}")
     public String showCarHistoryForm(Model model, @PathVariable Long id) {
         model.addAttribute("repairsDone", repairdoneService.findAllByCar(carService.getCar(id)));
-
         return "/cars/car-history";
     }
 

@@ -17,11 +17,12 @@ public class Repairman extends BaseEntity {
 
     String name;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Qualifications> qualifications = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carShopID")
+    private CarShop carShop;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
+    private List<RepairmanQ> RepairmanQ;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
     private List<Repairdone> repairsDone;

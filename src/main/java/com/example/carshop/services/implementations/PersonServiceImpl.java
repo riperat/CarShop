@@ -1,4 +1,4 @@
 package com.example.carshop.services.implementations;
 
-public class PersonImpl {
+public class PersonServiceImpl {
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CarShopImpl implements CarShopService {
+public class CarShopServiceImpl implements CarShopService {
     private final CarShopRepository carShopRepository;
 
     @Override
