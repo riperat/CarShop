@@ -14,7 +14,6 @@ public class QualificationsImpl implements QualificationsService {
 
     private final QualificationsRepository qualificationsRepository;
 
-
     @Override
     public List<Qualifications> getAllQualifications() {
         return qualificationsRepository.findAll();
@@ -24,7 +23,6 @@ public class QualificationsImpl implements QualificationsService {
     public Qualifications getQualification(long id) {
         return qualificationsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid qualification Id:" + id));
-
     }
 
     @Override

@@ -25,8 +25,5 @@ public class CarShop extends BaseEntity {
     private List<Repairdone> repairsDone;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "carShop")
-    private List<ServiceType> serviceTypes;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "carShop")
     private List<Repairman> repairmen;
 }

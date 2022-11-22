@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/success")
 public class IndexController {
 
     @GetMapping
     public String getIndex(Model model) {
-        return "/shops/shops.html";
+        final String successMessage = "Successfully created Appointment!";
+        model.addAttribute("temp", successMessage);
+        return "success.html";
     }
 }

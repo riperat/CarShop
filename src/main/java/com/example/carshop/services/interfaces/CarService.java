@@ -17,4 +17,6 @@ public interface CarService {
     void deleteCar(long id);
 
     List<Car> getCarsByBrand(String brand);
+
+    Car getCarByPlate(String plate);
 }

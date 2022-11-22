@@ -16,7 +16,7 @@
         <tr th:each="repairDone : ${repairsDone}">
             <td th:text="${repairDone.car.brand}"></td>
             <td th:text="${repairDone.carShop.name}"></td>
-            <td th:text="${repairDone.serviceType.serviceType}"></td>
+            <td th:text="${repairDone.serviceType.qualification}"></td>
             <td th:text="${repairDone.repairman.name}"></td>
             <td th:text="${repairDone.dateStarted}"></td>
             <td th:text="${repairDone.dateDone}"></td>

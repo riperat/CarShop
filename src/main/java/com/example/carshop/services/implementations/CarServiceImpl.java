@@ -45,4 +45,9 @@ public class CarServiceImpl implements CarService {
     public List<Car> getCarsByBrand(String brand) {
         return carRepository.findAllByBrand(brand);
     }
+
+    @Override
+    public Car getCarByPlate(String plate) {
+        return carRepository.findByRegistrationNumber(plate);
+    }
 }
