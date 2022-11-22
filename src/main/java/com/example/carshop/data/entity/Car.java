@@ -1,16 +1,13 @@
 package com.example.carshop.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -18,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "car")
-public class Car extends BaseEntity{
+public class Car extends BaseEntity {
 
     private String brand;
 

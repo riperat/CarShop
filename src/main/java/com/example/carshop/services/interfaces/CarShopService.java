@@ -1,6 +1,5 @@
 package com.example.carshop.services.interfaces;
 
-import com.example.carshop.data.entity.Car;
 import com.example.carshop.data.entity.CarShop;
 
 import java.util.List;

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head">
-<body>
+<body class="standart">
 <header th:replace="fragments :: header"></header>
-<h2>My cars:</h2>
+<h2 class="def-text">My cars:</h2>
 <div class="col-6">
-    <h3 th:unless="${cars} and ${cars.size()}">There are no cars!</h3>
+    <h3 class="def-text" th:unless="${cars} and ${cars.size()}">There are no cars!</h3>
     <table th:if="${cars.size()>0}" class="table-template">
         <th>Brand</th>
         <th>Model</th>

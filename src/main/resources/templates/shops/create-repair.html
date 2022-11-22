@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments :: head"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.standalone.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/6.2.0/css/all.css} "/>
+</head>
+<body class="standart">
+<header th:replace="fragments :: header"></header>
+<div class="col-6">
+
+    <div class="input-daterange" id="dtp1">
+        <form action="#" th:action="@{/shops/create}" th:object="${repair}" method="post">
+            <h3 class="def-text">Select date</h3>
+            <input type="date" class="form-control" th:field="*{dateStarted}"/>
+            <button type="submit" class="button">Create reservation</button>
+        </form>
+    </div>
+
+
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js}"></script>
+
+    <script>
+        $('.input-daterange input').each(function () {
+            $(this).datepicker('clearDates');
+        });
+    </script>
+
+<!--    <script th:inline="javascript">-->
+
+<!--        $("#dtp1").on("dp.change",function (e) {-->
+<!--            var message =/*[[${dates}]]*/ 'defaultanyvalue';-->
+<!--            console.log(message)-->
+<!--        });-->
+
+
+<!--    </script>-->
+</div>
+</body>
+</html>

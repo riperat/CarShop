@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head">
-<body>
+<body class="standart">
 <header th:replace="fragments :: header"></header>
 <div class="col-6">
-    <h2 class="headerText">No history:</h2>
-    <h3 th:unless="${repairsDone} and ${repairsDone.size()}">There is no history for this car!</h3>
+    <h2 class="def-text">Car history:</h2>
+    <h3 class="def-text" th:unless="${repairsDone} and ${repairsDone.size()}">There is no history for this car!</h3>
     <table th:if="${repairsDone.size()>0}" class="table-template">
         <th>Car</th>
         <th>Car Shop</th>

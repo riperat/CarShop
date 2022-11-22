@@ -1,6 +1,8 @@
 package com.example.carshop.data.repository;
 
-import com.example.carshop.data.entity.*;
+import com.example.carshop.data.entity.Qualifications;
+import com.example.carshop.data.entity.Repairman;
+import com.example.carshop.data.entity.RepairmanQ;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

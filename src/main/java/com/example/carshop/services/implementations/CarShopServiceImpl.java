@@ -1,10 +1,7 @@
 package com.example.carshop.services.implementations;
 
-import com.example.carshop.data.entity.Car;
 import com.example.carshop.data.entity.CarShop;
-import com.example.carshop.data.repository.CarRepository;
 import com.example.carshop.data.repository.CarShopRepository;
-import com.example.carshop.services.interfaces.CarService;
 import com.example.carshop.services.interfaces.CarShopService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

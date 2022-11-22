@@ -12,5 +12,7 @@ public interface RepairdoneService {
 
     List<Repairdone> findAllByCar(Car car);
 
+    Repairdone updateRepairdone(long id, Repairdone repairdone);
+
     List<Repairdone> findAllByCarShop(CarShop carShop);
 }

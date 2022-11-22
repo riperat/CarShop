@@ -3,7 +3,6 @@ package com.example.carshop.services.implementations;
 import com.example.carshop.data.entity.Car;
 import com.example.carshop.data.entity.CarShop;
 import com.example.carshop.data.entity.Repairdone;
-import com.example.carshop.data.repository.CarRepository;
 import com.example.carshop.data.repository.RepairdoneRepository;
 import com.example.carshop.services.interfaces.RepairdoneService;
 import lombok.AllArgsConstructor;
@@ -25,6 +24,11 @@ public class RepairdoneServiceImpl implements RepairdoneService {
     @Override
     public List<Repairdone> findAllByCar(Car car) {
         return repairdoneRepository.findAllByCar(car);
+    }
+
+    @Override
+    public Repairdone updateRepairdone(long id, Repairdone repairdone) {
+        return repairdoneRepository.save(repairdone);
     }
 
     @Override

@@ -11,9 +11,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "repairmanQ")
-public class RepairmanQ extends BaseEntity{
+public class RepairmanQ extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "qualificationsID")
     private Qualifications qualifications;
 

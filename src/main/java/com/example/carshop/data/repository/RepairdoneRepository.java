@@ -2,7 +2,6 @@ package com.example.carshop.data.repository;
 
 import com.example.carshop.data.entity.Car;
 import com.example.carshop.data.entity.CarShop;
-import com.example.carshop.data.entity.Person;
 import com.example.carshop.data.entity.Repairdone;
 import org.springframework.data.jpa.repository.JpaRepository;
 

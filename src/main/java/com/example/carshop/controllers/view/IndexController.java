@@ -13,6 +13,6 @@ public class IndexController {
 
     @GetMapping
     public String getIndex(Model model) {
-        return "/shops";
+        return "/shops/shops.html";
     }
 }

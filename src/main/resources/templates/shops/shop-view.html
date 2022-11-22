@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: head">
-<body>
+<head>
+    <link th:replace="fragments :: head"/>
+</head>
+<body class="standart">
 <header th:replace="fragments :: header"></header>
 <div class="col-6">
+    <h3 class="def-text" th:unless="${qualifications} and ${qualifications.size()}">There are no qualifications for this
+        shop. Please
+        hire some repairmen!</h3>
 
+    <h3 class="def-text">Shop qualifications:</h3>
+    <table th:if="${qualifications.size()>0}" class="table-template">
+        <tr th:each="qual : ${qualifications}">
+            <td th:text="${qual}"></td>
+        </tr>
+    </table>
+
+    <td><a class="btn btn-info" th:href="@{'/shops/create-repair/'}">Make an appointment</a></td>
 </div>
 </body>
 </html>

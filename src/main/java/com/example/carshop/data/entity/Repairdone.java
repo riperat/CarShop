@@ -3,10 +3,10 @@ package com.example.carshop.data.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -31,7 +31,11 @@ public class Repairdone extends BaseEntity {
     @JoinColumn(name = "reparmanID")
     private Repairman repairman;
 
-    private java.sql.Date dateStarted;
+    @Column(nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dateStarted;
 
-    private java.sql.Date dateDone;
+    @Column(nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dateDone;
 }

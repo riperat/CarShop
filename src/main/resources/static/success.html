@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<body class="standart">
+<header th:replace="fragments :: header"></header>
+<div class="col-6">
+    <h1 th:text="'Succesfully created ' + ${temp}"></h1>
+</div>
+</body>
+</html>

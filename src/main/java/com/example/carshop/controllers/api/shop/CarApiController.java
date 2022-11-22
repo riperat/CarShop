@@ -27,12 +27,12 @@ public class CarApiController {
 
     @PostMapping(value = "/api/car")
     public Car createCar(@RequestBody Car car) {
-        return (Car) carService.create(car);
+        return carService.create(car);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/api/car/{id}")
     public Car updateSchool(@PathVariable("id") long id, @RequestBody Car car) {
-        return (Car) carService.updateCar(id, car);
+        return carService.updateCar(id, car);
     }
 
     @GetMapping(value = "/api/schools/{brand}")
