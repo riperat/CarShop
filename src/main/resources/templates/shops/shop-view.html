@@ -10,14 +10,18 @@
         shop. Please
         hire some repairmen!</h3>
 
-    <h3 class="def-text">Shop qualifications:</h3>
-    <table th:if="${qualifications.size()>0}" class="table-template">
-        <tr th:each="qual : ${qualifications}">
-            <td th:text="${qual}"></td>
-        </tr>
-    </table>
+    <div th:if="${qualifications.size()>0}">
+        <h3 class="def-text">Shop qualifications:</h3>
+        <table class="table-template">
+            <tr th:each="qual : ${qualifications}">
+                <td th:text="${qual}"></td>
+            </tr>
+        </table>
 
-    <td><a class="button" th:href="@{'/shops/create-repair/'+${shopID}}">Make an appointment</a></td>
+        <td><a class="button" th:href="@{'/shops/create-repair/'+${shopID}}">Make an appointment</a></td>
+
+    </div>
+
 </div>
 </body>
 </html>

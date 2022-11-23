@@ -8,10 +8,10 @@
 <div class="col-6">
 
     <div class="form-group" id="dtp1">
-        <form action="#" th:action="@{/shops/create}" method="post">
+        <form action="#" th:action="@{/shops/create/__${id}__}" method="post">
 
             <label for="date">Appointment day:</label>
-            <input type="date" id="date" name="date" value="1999-09-23">
+            <input type="date" id="date" name="date" >
 
             <label for="date">My Cars:</label>
             <select class="form-control" id="car" name="car">
@@ -27,6 +27,13 @@
         </form>
     </div>
 
+
+        <script>
+            var todayDate = new Date().toISOString().split("T")[0];
+            date.value = todayDate;
+            date.min = todayDate;
+
+        </script>
 <!--    JS and TS get attribute-->
 <!--    <script th:inline="javascript">-->
 <!--        var allDates = [[${dates}]];-->

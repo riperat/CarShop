@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.example.carshop.util.HibernateUtil.getAllQualifications;
 
@@ -24,6 +26,7 @@ public class CarShopController {
     private RepairmanQService repairmanQService;
     private RepairmanService repairmanService;
     private RepairdoneService repairdoneService;
+    private QualificationsService qualificationsService;
 
     @GetMapping
     public String getCarShops(Model model) {
@@ -36,7 +39,7 @@ public class CarShopController {
     public String shopView(Repairdone repairdone, Model model, @PathVariable Long id) {
         final List<Repairman> repairmen = repairmanService.findAllByCarShop(carShopService.getShop(id));
 
-        final List<String> qualificationNamesList = getAllQualifications(repairmen, repairmanQService);
+        final Set<String> qualificationNamesList = getAllQualifications(repairmen, repairmanQService);
 
         model.addAttribute("qualifications", qualificationNamesList);
         model.addAttribute("repairdone", repairdone);
@@ -63,7 +66,7 @@ public class CarShopController {
         carService.getCars().forEach((car -> myCars.add(car.getRegistrationNumber())));
 
         //Qualifications List
-        final List<String> qualificationNamesList = getAllQualifications(repairmen, repairmanQService);
+        final Set<String> qualificationNamesList = getAllQualifications(repairmen, repairmanQService);
 
         model.addAttribute("dates", dates);
         model.addAttribute("repair", new Repairdone());
@@ -72,14 +75,16 @@ public class CarShopController {
         return "/shops/create-repair";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create/{id}")
     public String createCars(@RequestParam("date") String date,
-                             @RequestParam("car") String car, @RequestParam("qualification") String qualification) {
+                             @RequestParam("car") String car, @RequestParam("qualification") String qualification, @PathVariable Long id) {
 
         Repairdone repairdone = new Repairdone();
 
         repairdone.setReservationDate(java.sql.Date.valueOf(date));
         repairdone.setCar(carService.getCarByPlate(car));
+        repairdone.setCarShop(carShopService.getShop(id));
+        repairdone.setQualifications(qualificationsService.getQualificationByName(qualification));
         repairdoneService.create(repairdone);
         return "redirect:/shops";
     }
@@ -107,4 +112,6 @@ public class CarShopController {
         carShopService.deleteShop(id);
         return "redirect:/cars";
     }
+
+
 }

@@ -26,6 +26,11 @@ public class QualificationsImpl implements QualificationsService {
     }
 
     @Override
+    public Qualifications getQualificationByName(String qual) {
+        return qualificationsRepository.findByQualificationName(qual);
+    }
+
+    @Override
     public Qualifications create(Qualifications qualifications) {
         return qualificationsRepository.save(qualifications);
     }

@@ -10,6 +10,8 @@ public interface QualificationsService {
 
     Qualifications getQualification(long id);
 
+    Qualifications getQualificationByName(String qual);
+
     Qualifications create(Qualifications qualifications);
 
     Qualifications updateQualification(long id, Qualifications qualifications);
