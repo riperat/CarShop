@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -24,11 +23,10 @@ public class Repairdone extends BaseEntity {
     @JoinColumn(name = "carID")
     private Car car;
 
-
     //TODO change service type to Qualification no need for serviceType
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "qualificationID")
-    private Qualifications qualification;
+    private Qualifications qualifications;
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy/MM/dd")

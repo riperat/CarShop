@@ -22,7 +22,4 @@ public class Repairman extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
     private List<RepairmanQ> RepairmanQ;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
-    private List<Repairdone> repairsDone;
 }

@@ -13,7 +13,7 @@
             <input class="form-control" type="text" th:field="*{color}" placeholder="Color" id="color">
             <input class="form-control" type="text" th:field="*{registrationNumber}" placeholder="Registration Number"
                    id="registrationNumber">
-            <input class="form-control" type="number" th:field="*{manufactureYear}" placeholder="Manufacture Year"
+            <input class="form-control" min="1900" max="2099" value="2016" type="number" th:field="*{manufactureYear}" placeholder="Manufacture Year"
                    id="manufactureYear">
             <button type="submit" class="button">Update School</button>
         </div>

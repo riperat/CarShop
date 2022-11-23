@@ -24,6 +24,6 @@ public class Qualifications extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
     private List<RepairmanQ> RepairmanQ;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
-    private List<Repairdone> repairdones;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "qualifications")
+    private List<Repairdone> rep;
 }
