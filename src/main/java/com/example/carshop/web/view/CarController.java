@@ -1,4 +1,4 @@
-package com.example.carshop.controllers.view;
+package com.example.carshop.web.view;
 
 import com.example.carshop.data.entity.Car;
 import com.example.carshop.services.interfaces.CarService;

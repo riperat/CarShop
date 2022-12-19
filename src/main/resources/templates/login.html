@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/static/css/loginMenu.css" th:href="@{/css/loginMenu.css}">
+</head>
+<body class="standart">
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+
+        <!-- Login Form -->
+        <form name="login" th:action="@{/login}" method="post">
+            <div th:if="${param.error}" class="alert alert-danger">
+                Invalid username and password.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success">
+                You have been logged out.
+            </div>
+
+            <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
+            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+    </div>
+</div>
+</body>
+</html>

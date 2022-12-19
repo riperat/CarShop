@@ -1,4 +1,4 @@
-package com.example.carshop.controllers.api.shop;
+package com.example.carshop.web.api.shop;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
