@@ -24,20 +24,19 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column
-    private boolean isAccountNonExpired;
-
-    @Column
-    private boolean isAccountNonLocked;
-
-    @Column
-    private boolean isCredentialsNonExpired;
-
-    @Column
-    private boolean isEnabled;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> authorities;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carID")
+    private Car car;
+
+    private Boolean enabled = false;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -71,6 +70,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }

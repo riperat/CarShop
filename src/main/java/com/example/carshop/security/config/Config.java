@@ -1,4 +1,4 @@
-package com.example.carshop.config;
+package com.example.carshop.security.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

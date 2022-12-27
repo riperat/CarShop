@@ -3,8 +3,10 @@ package com.example.carshop.web.view;
 import com.example.carshop.data.entity.CarShop;
 import com.example.carshop.data.entity.Repairdone;
 import com.example.carshop.data.entity.Repairman;
+import com.example.carshop.data.entity.User;
 import com.example.carshop.services.interfaces.*;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +50,7 @@ public class CarShopController {
     }
 
     @GetMapping("/create-repair/{id}")
-    public String showCreateRepairForm(Model model, @PathVariable Long id) {
+    public String showCreateRepairForm(Model model, @PathVariable Long id, Authentication authentication) {
         final List<Repairman> repairmen = repairmanService.findAllByCarShop(carShopService.getShop(id));
         final List<Repairdone> repairs = new ArrayList<>();
         final List<Date> dates = new ArrayList<>();
@@ -61,6 +63,8 @@ public class CarShopController {
 
         //TODO add logic for user's current car
         //User Cars list
+        User principal = (User) authentication.getPrincipal();
+        model.addAttribute("username", principal.getAuthorities());
         final List<String> myCars = new ArrayList<>();
         carService.getCars().forEach((car -> myCars.add(car.getRegistrationNumber())));
 

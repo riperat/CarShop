@@ -28,7 +28,7 @@ public class Car extends BaseEntity {
     private int manufactureYear;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
-    private List<Person> people;
+    private List<User> person;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
     private List<Repairdone> repairsDone;
