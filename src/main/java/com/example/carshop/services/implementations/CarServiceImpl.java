@@ -1,7 +1,9 @@
 package com.example.carshop.services.implementations;
 
 import com.example.carshop.data.entity.Car;
+import com.example.carshop.data.entity.User;
 import com.example.carshop.data.repository.CarRepository;
+import com.example.carshop.data.repository.UserRepository;
 import com.example.carshop.services.interfaces.CarService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CarServiceImpl implements CarService {
 
+    private UserRepository userRepository;
     private final CarRepository carRepository;
 
     @Override
@@ -49,5 +52,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car getCarByPlate(String plate) {
         return carRepository.findByRegistrationNumber(plate);
+    }
+
+    @Override
+    public List<Car> getCarsByUser(User user) {
+        return carRepository.findAllByUser(user);
     }
 }

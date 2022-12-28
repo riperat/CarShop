@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,8 +25,8 @@ public class Car extends BaseEntity {
 
     private int manufactureYear;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
-    private List<User> person;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<User> user;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
     private List<Repairdone> repairsDone;

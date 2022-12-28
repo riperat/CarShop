@@ -1,14 +1,18 @@
 package com.example.carshop.web.view;
 
 import com.example.carshop.data.entity.Car;
+import com.example.carshop.data.entity.User;
 import com.example.carshop.services.interfaces.CarService;
 import com.example.carshop.services.interfaces.RepairdoneService;
+import com.example.carshop.services.interfaces.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @AllArgsConstructor
@@ -19,8 +23,8 @@ public class CarController {
     private RepairdoneService repairdoneService;
 
     @GetMapping
-    public String getCars(Model model) {
-        final List<Car> cars = carService.getCars();
+    public String getCars(Model model, @AuthenticationPrincipal User user) {
+        final List<Car> cars = carService.getCarsByUser(user);
         model.addAttribute("cars", cars);
         return "/cars/cars.html";
     }
@@ -32,7 +36,9 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public String createCars(@ModelAttribute Car car) {
+    public String createCars(@ModelAttribute Car car, @AuthenticationPrincipal User user) {
+
+        car.setUser(Set.of(user));
         carService.create(car);
         return "redirect:/cars";
     }

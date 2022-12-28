@@ -1,52 +1,91 @@
 package com.example.carshop.web.view;
 
 import com.example.carshop.data.entity.User;
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.example.carshop.services.interfaces.UserService;
+import com.example.carshop.web.dto.UserDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
-@AllArgsConstructor
-@RequestMapping("/")
 public class IndexController {
 
-    @GetMapping
-    public String getIndex(Model model, Authentication authentication) {
-        final String welcomeMessage = "Welcome to the School Management System!";
-        model.addAttribute("welcome", welcomeMessage);
+    @Autowired
+    private UserService userService;
 
-        Authentication authentication2 = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", authentication.getName());
+//    @GetMapping
+//    public String getIndex(Model model, Authentication authentication) {
+//        final String welcomeMessage = "Welcome to the School Management System!";
+//        model.addAttribute("welcome", welcomeMessage);
+//
+//        Authentication authentication2 = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("username", authentication.getName());
+//
+//        User principal = (User) authentication.getPrincipal();
+//        model.addAttribute("username", principal.getAuthorities());
+//
+//        return "index";
+//    }
 
-        User principal = (User) authentication.getPrincipal();
-        model.addAttribute("username", principal.getAuthorities());
-
-        return "index";
+    // handler method to handle home page request
+    @GetMapping("/index")
+    public String home() {
+        return "/cars/cars.html";
     }
 
-    @GetMapping("login")
-    public String login(Model model) {
-        final String welcomeMessage = "Welcome to the School Management System!";
-        model.addAttribute("welcome", welcomeMessage);
+    // handler method to handle login request
+    @GetMapping("/login")
+    public String login() {
         return "login";
     }
 
-    @GetMapping("logout")
-    public String logout(Model model) {
-        final String welcomeMessage = "Welcome to the School Management System!";
-        model.addAttribute("welcome", welcomeMessage);
-        return "login";
+    // handler method to handle user registration form request
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        // create model object to store form data
+        UserDto user = new UserDto();
+        model.addAttribute("user", user);
+        return "register";
     }
 
-    @GetMapping("unauthorized")
-    public String unauthorized(Model model) {
-        final String welcomeMessage = "Welcome to the School Management System!";
-        model.addAttribute("welcome", welcomeMessage);
-        return "unauthorized";
+    // handler method to handle user registration form submit request
+    @PostMapping("/register/save")
+    public String registration(@Valid @ModelAttribute("user") UserDto userDto,
+                               BindingResult result,
+                               Model model) {
+        User existingUser = null;
+        try {
+            existingUser = userService.findUserByUsername(userDto.getUsername());
+        } catch (Exception e) {
+        }
+
+        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
+            result.rejectValue("username", null,
+                    "There is already an account registered with the same email");
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("user", userDto);
+            return "/register";
+        }
+
+        userService.saveUser(userDto);
+        return "redirect:/register?success";
+    }
+
+    // handler method to handle list of users
+    @GetMapping("/users")
+    public String users(Model model) {
+        List<UserDto> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "users";
     }
 
 }

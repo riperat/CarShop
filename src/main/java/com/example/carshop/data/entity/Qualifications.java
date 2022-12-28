@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,8 +19,8 @@ public class Qualifications extends BaseEntity {
 
     Long price;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
-    private List<RepairmanQ> RepairmanQ;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Repairman> repairman;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "qualifications")
     private List<Repairdone> rep;

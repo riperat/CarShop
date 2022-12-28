@@ -3,11 +3,9 @@ package com.example.carshop.data.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 
@@ -27,31 +25,8 @@ public class User extends BaseEntity implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> authorities;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "carID")
-    private Car car;
-
-    private Boolean enabled = false;
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
+    @ManyToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Car> car;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -70,6 +45,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;
     }
 }

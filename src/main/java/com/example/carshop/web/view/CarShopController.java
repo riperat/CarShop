@@ -7,6 +7,8 @@ import com.example.carshop.data.entity.User;
 import com.example.carshop.services.interfaces.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,6 @@ import static com.example.carshop.util.HibernateUtil.getAllQualifications;
 public class CarShopController {
     private CarService carService;
     private CarShopService carShopService;
-    private RepairmanQService repairmanQService;
     private RepairmanService repairmanService;
     private RepairdoneService repairdoneService;
     private QualificationsService qualificationsService;
@@ -40,7 +41,7 @@ public class CarShopController {
     public String shopView(Repairdone repairdone, Model model, @PathVariable Long id) {
         final List<Repairman> repairmen = repairmanService.findAllByCarShop(carShopService.getShop(id));
 
-        final Set<String> qualificationNamesList = getAllQualifications(repairmen, repairmanQService);
+        final Set<String> qualificationNamesList = getAllQualifications(repairmen, qualificationsService);
 
         model.addAttribute("qualifications", qualificationNamesList);
         model.addAttribute("repairdone", repairdone);
@@ -50,7 +51,7 @@ public class CarShopController {
     }
 
     @GetMapping("/create-repair/{id}")
-    public String showCreateRepairForm(Model model, @PathVariable Long id, Authentication authentication) {
+    public String showCreateRepairForm(Model model, @PathVariable Long id, Authentication authentication, @AuthenticationPrincipal User user) {
         final List<Repairman> repairmen = repairmanService.findAllByCarShop(carShopService.getShop(id));
         final List<Repairdone> repairs = new ArrayList<>();
         final List<Date> dates = new ArrayList<>();
@@ -61,15 +62,13 @@ public class CarShopController {
             dates.add(rep.getReservationDate());
         }
 
-        //TODO add logic for user's current car
-        //User Cars list
-        User principal = (User) authentication.getPrincipal();
-        model.addAttribute("username", principal.getAuthorities());
+        model.addAttribute("username", user.getUsername());
+
         final List<String> myCars = new ArrayList<>();
-        carService.getCars().forEach((car -> myCars.add(car.getRegistrationNumber())));
+        carService.getCarsByUser(user).forEach((car -> myCars.add(car.getRegistrationNumber())));
 
         //Qualifications List
-        final Set<String> qualificationNamesList = getAllQualifications(repairmen, repairmanQService);
+        final Set<String> qualificationNamesList = getAllQualifications(repairmen, qualificationsService);
 
         model.addAttribute("dates", dates);
         model.addAttribute("repair", new Repairdone());

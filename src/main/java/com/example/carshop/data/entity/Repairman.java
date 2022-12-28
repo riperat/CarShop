@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,6 +21,6 @@ public class Repairman extends BaseEntity {
     @JoinColumn(name = "carShopID")
     private CarShop carShop;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
-    private List<RepairmanQ> RepairmanQ;
+    @ManyToMany(mappedBy = "repairman", fetch = FetchType.EAGER)
+    private Set<Qualifications> qualifications;
 }

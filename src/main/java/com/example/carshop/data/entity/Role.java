@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Getter
@@ -18,6 +15,7 @@ import java.util.Set;
 @Table(name = "role")
 public class Role extends BaseEntity implements GrantedAuthority {
 
+    @Column(nullable=false, unique=true)
     private String authority;
 
     @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER)

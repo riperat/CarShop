@@ -1,6 +1,7 @@
 package com.example.carshop.services.implementations;
 
 import com.example.carshop.data.entity.Qualifications;
+import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.data.repository.QualificationsRepository;
 import com.example.carshop.services.interfaces.QualificationsService;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,11 @@ public class QualificationsImpl implements QualificationsService {
     @Override
     public Qualifications getQualificationByName(String qual) {
         return qualificationsRepository.findByQualificationName(qual);
+    }
+
+    @Override
+    public List<Qualifications> getQualificationByRepairman(Repairman repairman) {
+        return qualificationsRepository.findAllByRepairman(repairman);
     }
 
     @Override
