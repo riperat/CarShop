@@ -5,7 +5,9 @@ import com.example.carshop.data.entity.User;
 import com.example.carshop.data.repository.CarRepository;
 import com.example.carshop.data.repository.UserRepository;
 import com.example.carshop.services.interfaces.CarService;
+import com.example.carshop.web.dto.CreateCarDTO;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 public class CarServiceImpl implements CarService {
 
-    private UserRepository userRepository;
     private final CarRepository carRepository;
+    private final ModelMapper modelMapper;
+
+    private UserRepository userRepository;
 
     @Override
     public List<Car> getCars() {
@@ -29,8 +33,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car create(Car car) {
-        return carRepository.save(car);
+    public Car create(CreateCarDTO car) {
+        return carRepository.save(modelMapper.map(car, Car.class));
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.example.carshop.data.entity;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,14 +18,20 @@ import java.util.Set;
 @Table(name = "car")
 public class Car extends BaseEntity {
 
+    @NotBlank
     private String brand;
 
+    @NotBlank
     private String model;
 
+    @NotBlank
     private String color;
 
+    @NotBlank
     private String registrationNumber;
 
+    @NotNull
+    @Min(value = 1950, message = "Min 1950")
     private int manufactureYear;
 
     @ManyToMany(fetch = FetchType.EAGER)

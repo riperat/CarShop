@@ -1,6 +1,8 @@
-package com.example.carshop.web.view;
+package com.example.carshop.web.view.controllers;
 
+import com.example.carshop.data.entity.CarShop;
 import com.example.carshop.data.entity.User;
+import com.example.carshop.services.interfaces.CarShopService;
 import com.example.carshop.services.interfaces.UserService;
 import com.example.carshop.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/")
 public class IndexController {
 
+    private CarShopService carShopService;
     @Autowired
     private UserService userService;
 
@@ -35,9 +40,11 @@ public class IndexController {
 //    }
 
     // handler method to handle home page request
-    @GetMapping("/index")
-    public String home() {
-        return "/cars/cars.html";
+    @GetMapping
+    public String getCarShops(Model model) {
+        final List<CarShop> shops = carShopService.getShops();
+        model.addAttribute("shops", shops);
+        return "/shops/shops.html";
     }
 
     // handler method to handle login request
@@ -60,17 +67,12 @@ public class IndexController {
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
                                BindingResult result,
                                Model model) {
-        User existingUser = null;
-        try {
-            existingUser = userService.findUserByUsername(userDto.getUsername());
-        } catch (Exception e) {
-        }
+        User existingUser = userService.findUserByUsername(userDto.getUsername());
 
         if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
             result.rejectValue("username", null,
                     "There is already an account registered with the same email");
         }
-
         if (result.hasErrors()) {
             model.addAttribute("user", userDto);
             return "/register";
@@ -88,4 +90,8 @@ public class IndexController {
         return "users";
     }
 
+    @GetMapping("unauthorized")
+    public String unauthorized(Model model) {
+        return "unauthorized";
+    }
 }

@@ -2,7 +2,10 @@ package com.example.carshop.web.api.shop;
 
 import com.example.carshop.data.entity.Car;
 import com.example.carshop.services.interfaces.CarService;
+import com.example.carshop.web.dto.CreateCarDTO;
+import com.example.carshop.web.view.model.CreateCarViewModel;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/car")
 @AllArgsConstructor
 public class CarApiController {
+    private final ModelMapper modelMapper;
 
     @Autowired
     private final CarService carService;
@@ -27,8 +31,8 @@ public class CarApiController {
     }
 
     @PostMapping(value = "/api/car")
-    public Car createCar(@RequestBody Car car) {
-        return carService.create(car);
+    public Car createCar(@RequestBody CreateCarViewModel car) {
+        return carService.create(modelMapper.map(car, CreateCarDTO.class));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/api/car/{id}")

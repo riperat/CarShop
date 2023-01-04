@@ -2,11 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head">
 </head>
-<body>
-<h1 th:text="'Hello and  ' + ${welcome}"></h1>
+<body class="standart">
 <header th:replace="fragments :: header"></header>
-<div class="container col-9">
-    <h1>Unfortunately you are not authorized to be here!</h1>
+<div class="form-group">
+    <h3>Unfortunately you are not authorized to be here!</h3>
 </div>
 </body>
 </html>

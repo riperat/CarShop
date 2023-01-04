@@ -12,7 +12,7 @@
         <th>Color</th>
         <th>Registration Number</th>
         <th>Manufacture Year</th>
-        <th>History</th>
+        <th>Repair History</th>
         <th>Edit</th>
         <th>Delete</th>
         <tr th:each="car : ${cars}">
@@ -21,7 +21,7 @@
             <td th:text="${car.color}"></td>
             <td th:text="${car.registrationNumber}"></td>
             <td th:text="${car.manufactureYear}"></td>
-            <td><a class="btn btn-info" th:href="@{'/cars/car-history/'+${car.id}}">History</a></td>
+            <td><a class="btn btn-info" th:href="@{'/cars/car-history/'+${car.id}}">Repair History</a></td>
             <td><a class="btn btn-info" th:href="@{'/cars/edit-car/'+${car.id}}">Edit</a></td>
             <td><a class="btn btn-danger" th:href="@{'/cars/delete/'+${car.id}}">Delete</a></td>
         </tr>

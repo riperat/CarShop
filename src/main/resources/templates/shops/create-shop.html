@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="standart">
+<header th:replace="fragments :: header"></header>
+<div class="col-6">
+    <h2 class="def-text">Add shop:</h2>
+    <form action="#" th:action="@{/shops/create}" th:object="${carShop}" method="post">
+        <div class="form-group">
+            <label for="carShop">Create Shop: </label>
+            <input class="form-control" type="text" th:field="*{name}" placeholder="Name" id="name">
+            <input class="form-control" type="text" th:field="*{carPreferences}" placeholder="Car Preferences"
+                   id="carPreferences">
+            <button type="submit" class="button">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

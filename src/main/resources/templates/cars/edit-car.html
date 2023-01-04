@@ -8,7 +8,7 @@
     <form action="#" th:action="@{/cars/update/{id}(id=${car.id})}" th:object="${car}" method="post">
         <div class="form-group">
 
-            <label for="brand">Brand</label>
+            <label for="brand">Edit Car:</label>
             <input class="form-control" type="text" th:field="*{brand}" placeholder="Brand" id="brand">
             <input class="form-control" type="text" th:field="*{model}" placeholder="Model" id="model">
             <input class="form-control" type="text" th:field="*{color}" placeholder="Color" id="color">
@@ -16,7 +16,7 @@
                    id="registrationNumber">
             <input class="form-control" type="number" th:field="*{manufactureYear}" placeholder="Manufacture Year"
                    id="manufactureYear">
-            <button type="submit" class="button">Update School</button>
+            <button type="submit" class="button">Submit</button>
         </div>
     </form>
 </div>

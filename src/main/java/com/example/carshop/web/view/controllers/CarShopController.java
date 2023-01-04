@@ -1,5 +1,6 @@
-package com.example.carshop.web.view;
+package com.example.carshop.web.view.controllers;
 
+import com.example.carshop.data.entity.Car;
 import com.example.carshop.data.entity.CarShop;
 import com.example.carshop.data.entity.Repairdone;
 import com.example.carshop.data.entity.Repairman;
@@ -94,17 +95,23 @@ public class CarShopController {
     @GetMapping("/create-carShop")
     public String showCreateCarShopsForm(Model model) {
         model.addAttribute("carShop", new CarShop());
-        return "/shops/create-carShop";
+        return "/shops/create-shop";
+    }
+
+    @PostMapping("/create")
+    public String createCars(@ModelAttribute CarShop carShop) {
+        carShopService.create(carShop);
+        return "redirect:/shops";
     }
 
     @GetMapping("/edit-carShop/{id}")
-    public String showEditCarsForm(Model model, @PathVariable Long id) {
+    public String showEditCarShopForm(Model model, @PathVariable Long id) {
         model.addAttribute("carShop", carShopService.getShop(id));
-        return "/shops/edit-carShop";
+        return "/shops/edit-shop";
     }
 
     @PostMapping("/update/{id}")
-    public String updateCars(Model model, @PathVariable long id, CarShop carShop) {
+    public String updateCars(@PathVariable long id, CarShop carShop) {
         carShopService.updateShop(id, carShop);
         return "redirect:/shops";
     }

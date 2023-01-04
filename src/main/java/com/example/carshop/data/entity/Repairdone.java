@@ -23,7 +23,6 @@ public class Repairdone extends BaseEntity {
     @JoinColumn(name = "carID")
     private Car car;
 
-    //TODO change service type to Qualification no need for serviceType
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "qualificationID")
     private Qualifications qualifications;
