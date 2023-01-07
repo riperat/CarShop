@@ -1,6 +1,5 @@
 package com.example.carshop.web.view.controllers;
 
-import com.example.carshop.data.entity.Car;
 import com.example.carshop.data.entity.CarShop;
 import com.example.carshop.data.entity.Repairdone;
 import com.example.carshop.data.entity.Repairman;
@@ -9,7 +8,6 @@ import com.example.carshop.services.interfaces.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
