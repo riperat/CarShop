@@ -6,11 +6,13 @@ import com.example.carshop.data.repository.CarRepository;
 import com.example.carshop.data.repository.UserRepository;
 import com.example.carshop.services.interfaces.CarService;
 import com.example.carshop.web.dto.CreateCarDTO;
+import com.example.carshop.web.dto.UpdateCarDTO;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -38,7 +40,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car updateCar(long id, Car car) {
+    public Car updateCar(long id, UpdateCarDTO updateCarlDTO) {
+        Car car = modelMapper.map(updateCarlDTO, Car.class);
         car.setId(id);
         return carRepository.save(car);
     }
@@ -56,6 +59,11 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car getCarByPlate(String plate) {
         return carRepository.findByRegistrationNumber(plate);
+    }
+
+    @Override
+    public Optional<Car> getCarById(long id) {
+        return carRepository.findById(id);
     }
 
     @Override

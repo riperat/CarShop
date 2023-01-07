@@ -1,9 +1,11 @@
-package com.example.carshop.web.api.shop;
+package com.example.carshop.web.api;
 
 import com.example.carshop.data.entity.Car;
 import com.example.carshop.services.interfaces.CarService;
 import com.example.carshop.web.dto.CreateCarDTO;
+import com.example.carshop.web.dto.UpdateCarDTO;
 import com.example.carshop.web.view.model.CreateCarViewModel;
+import com.example.carshop.web.view.model.UpdateCarViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,8 @@ public class CarApiController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/api/car/{id}")
-    public Car updateSchool(@PathVariable("id") long id, @RequestBody Car car) {
-        return carService.updateCar(id, car);
+    public Car updateSchool(@PathVariable("id") long id, @RequestBody UpdateCarViewModel car) {
+        return carService.updateCar(id, modelMapper.map(car, UpdateCarDTO.class));
     }
 
     @GetMapping(value = "/api/schools/{brand}")

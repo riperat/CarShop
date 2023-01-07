@@ -25,7 +25,7 @@ public class User extends BaseEntity implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> authorities;
 
-    @ManyToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @ManyToMany
     private Set<Car> car;
 
     @Override

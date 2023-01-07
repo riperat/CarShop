@@ -4,9 +4,10 @@ import com.example.carshop.data.entity.Car;
 import com.example.carshop.data.entity.User;
 import com.example.carshop.services.interfaces.CarService;
 import com.example.carshop.services.interfaces.RepairdoneService;
-import com.example.carshop.services.interfaces.UserService;
 import com.example.carshop.web.dto.CreateCarDTO;
+import com.example.carshop.web.dto.UpdateCarDTO;
 import com.example.carshop.web.view.model.CreateCarViewModel;
+import com.example.carshop.web.view.model.UpdateCarViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -43,7 +45,7 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public String createCars(@Valid @ModelAttribute("car") CreateCarViewModel car, @AuthenticationPrincipal User user, BindingResult bindingResult) {
+    public String createCars(@Valid @ModelAttribute("cars") CreateCarViewModel car, @AuthenticationPrincipal User user, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "/cars/create-car";
@@ -67,8 +69,13 @@ public class CarController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateCars(Model model, @PathVariable long id, Car car) {
-        carService.updateCar(id, car);
+    public String updateCars(@PathVariable long id, @Valid @ModelAttribute("cars") UpdateCarViewModel car, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "/cars/edit-car";
+        }
+
+        carService.updateCar(id, modelMapper.map(car, UpdateCarDTO.class));
         return "redirect:/cars";
     }
 
