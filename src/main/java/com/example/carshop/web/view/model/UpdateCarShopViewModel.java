@@ -2,7 +2,9 @@ package com.example.carshop.web.view.model;
 
 import com.example.carshop.data.entity.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -12,18 +14,9 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class CreateCarViewModel {
-    private String brand;
-
-    private String model;
-
-    private String color;
-
-    private String registrationNumber;
-
-    @Min(value = 1950, message = "Min 1950")
-    @Max(value = 2600, message = "Max 2100")
-    private int manufactureYear;
-
-    private Set<User> user;
+@NoArgsConstructor
+@ToString
+public class UpdateCarShopViewModel {
+    private String name;
+    private String carPreferences;
 }

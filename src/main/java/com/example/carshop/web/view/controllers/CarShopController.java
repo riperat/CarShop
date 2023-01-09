@@ -5,11 +5,16 @@ import com.example.carshop.data.entity.Repairdone;
 import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.data.entity.User;
 import com.example.carshop.services.interfaces.*;
+import com.example.carshop.web.dto.CreateCarDTO;
+import com.example.carshop.web.dto.CreateCarShopDTO;
+import com.example.carshop.web.view.model.CreateCarShopViewModel;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -23,6 +28,8 @@ import static com.example.carshop.util.HibernateUtil.getAllQualifications;
 @AllArgsConstructor
 @RequestMapping("/shops")
 public class CarShopController {
+    private final ModelMapper modelMapper;
+
     private CarService carService;
     private CarShopService carShopService;
     private RepairmanService repairmanService;
@@ -97,8 +104,12 @@ public class CarShopController {
     }
 
     @PostMapping("/create")
-    public String createCars(@ModelAttribute CarShop carShop) {
-        carShopService.create(carShop);
+    public String createCars(@ModelAttribute CreateCarShopViewModel createCarShopViewModel, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/shops/create-shop";
+        }
+
+        carShopService.create(modelMapper.map(createCarShopViewModel, CreateCarShopDTO.class));
         return "redirect:/shops";
     }
 
@@ -108,11 +119,11 @@ public class CarShopController {
         return "/shops/edit-shop";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateCars(@PathVariable long id, CarShop carShop) {
-        carShopService.updateShop(id, carShop);
-        return "redirect:/shops";
-    }
+//    @PostMapping("/update/{id}")
+//    public String updateCars(@PathVariable long id, CarShop carShop) {
+//        carShopService.updateShop(id, carShop);
+//        return "redirect:/shops";
+//    }
 
     @GetMapping("/delete/{id}")
     public String processProgramForm(@PathVariable int id) {

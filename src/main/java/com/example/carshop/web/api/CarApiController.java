@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/car")
+@RequestMapping
 @AllArgsConstructor
 public class CarApiController {
     private final ModelMapper modelMapper;
@@ -42,13 +42,13 @@ public class CarApiController {
         return carService.updateCar(id, modelMapper.map(car, UpdateCarDTO.class));
     }
 
-    @GetMapping(value = "/api/schools/{brand}")
+    @GetMapping(value = "/api/car/delete/{id}")
     public void deleteCar(@PathVariable long id) {
         carService.deleteCar(id);
     }
 
-    @RequestMapping(value = "/api/schools")
-    public List<Car> getCarsByBrand(String brand) {
+    @RequestMapping(value = "/api/schools/{brand}")
+    public List<Car> getCarsByBrand(@PathVariable("brand") String brand) {
         return carService.getCarsByBrand(brand);
     }
 

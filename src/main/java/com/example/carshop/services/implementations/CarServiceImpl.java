@@ -17,11 +17,8 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class CarServiceImpl implements CarService {
-
     private final CarRepository carRepository;
     private final ModelMapper modelMapper;
-
-    private UserRepository userRepository;
 
     @Override
     public List<Car> getCars() {

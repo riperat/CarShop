@@ -44,12 +44,10 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public String createCars(@Valid @ModelAttribute("cars") CreateCarViewModel car, @AuthenticationPrincipal User user, BindingResult bindingResult) {
-
+    public String createCars(@Valid @ModelAttribute("car") CreateCarViewModel car, @AuthenticationPrincipal User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/cars/create-car";
         }
-
         car.setUser(Set.of(user));
         carService.create(modelMapper.map(car, CreateCarDTO.class));
         return "redirect:/cars";
