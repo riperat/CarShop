@@ -28,6 +28,7 @@ public class Car extends BaseEntity {
     private String color;
 
     @NotBlank
+    @Column(nullable=false, unique=true)
     private String registrationNumber;
 
     @NotNull

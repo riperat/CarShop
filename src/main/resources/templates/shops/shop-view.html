@@ -6,9 +6,7 @@
 <body class="standart">
 <header th:replace="fragments :: header"></header>
 <div class="col-6">
-    <h3 class="def-text" th:unless="${qualifications} and ${qualifications.size()}">There are no qualifications for this
-        shop. Please
-        hire some repairmen!</h3>
+    <h3 class="def-text" th:unless="${qualifications} and ${qualifications.size()}">Shop has unqualified repairmen, please tech them some skills!</h3>
 
     <div th:if="${qualifications.size()>0}">
         <h3 class="def-text">Shop qualifications:</h3>

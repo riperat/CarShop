@@ -30,4 +30,7 @@ public class Repairdone extends BaseEntity {
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date reservationDate;
+
+    @Column(nullable = false)
+    private Long price;
 }

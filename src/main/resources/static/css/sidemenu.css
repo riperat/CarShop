@@ -103,6 +103,18 @@
     color: #009879;
 }
 
+.linkB a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #444343;
+    display: block;
+    transition: 0.3s;
+}
+
+.linkB a:hover {
+    color: #f1f1f1;
+}
+
 .sidenav {
     height: 100%;
     width: 0;

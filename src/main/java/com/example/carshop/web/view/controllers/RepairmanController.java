@@ -9,12 +9,12 @@ import com.example.carshop.web.dto.CreateCarShopDTO;
 import com.example.carshop.web.view.model.CreateCarShopViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ import static com.example.carshop.util.HibernateUtil.getAllQualifications;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/shops")
-public class CarShopController {
+@RequestMapping("/repairman")
+public class RepairmanController {
     private final ModelMapper modelMapper;
 
     private CarService carService;
@@ -35,19 +35,7 @@ public class CarShopController {
     private RepairdoneService repairdoneService;
     private QualificationsService qualificationsService;
 
-    @GetMapping
-    public String getCarShops(Model model) {
-        final List<CarShop> shops = carShopService.getShops();
-        model.addAttribute("shops", shops);
-        return "/shops/shops.html";
-    }
 
-    @GetMapping("/success")
-    public ModelAndView success() {
-        ModelAndView modelAndView = new ModelAndView("/shops/success");
-
-        return modelAndView;
-    }
 
     @GetMapping("/shop-view/{id}")
     public String shopView(Repairdone repairdone, Model model, @PathVariable Long id) {
@@ -63,7 +51,7 @@ public class CarShopController {
     }
 
     @GetMapping("/create-repair/{id}")
-    public String showCreateRepairForm(Model model, @PathVariable Long id, @AuthenticationPrincipal User user) {
+    public String showCreateRepairForm(Model model, @PathVariable Long id, Authentication authentication, @AuthenticationPrincipal User user) {
         final List<Repairman> repairmen = repairmanService.findAllByCarShop(carShopService.getShop(id));
         final List<Repairdone> repairs = new ArrayList<>();
         final List<Date> dates = new ArrayList<>();
@@ -90,8 +78,8 @@ public class CarShopController {
     }
 
     @PostMapping("/create/{id}")
-    public ModelAndView createRepair(@RequestParam("date") String date,
-                                     @RequestParam("car") String car, @RequestParam("qualification") String qualification, @PathVariable Long id) {
+    public String createCars(@RequestParam("date") String date,
+                             @RequestParam("car") String car, @RequestParam("qualification") String qualification, @PathVariable Long id) {
 
         Repairdone repairdone = new Repairdone();
 
@@ -99,22 +87,8 @@ public class CarShopController {
         repairdone.setCar(carService.getCarByPlate(car));
         repairdone.setCarShop(carShopService.getShop(id));
         repairdone.setQualifications(qualificationsService.getQualificationByName(qualification));
-        Long price = qualificationsService.getQualificationByName(qualification).getPrice();
-        repairdone.setPrice(price);
         repairdoneService.create(repairdone);
-        return checkout(price, car, date, qualification, id);
-    }
-
-    @GetMapping("/checkout")
-    public ModelAndView checkout(Long price, String car, String date, String qualification, Long id) {
-        ModelAndView modelAndView = new ModelAndView("/shops/checkout");
-        modelAndView.addObject("price", price);
-        modelAndView.addObject("car", carService.getCarByPlate(car).getBrand());
-        modelAndView.addObject("date", date);
-        modelAndView.addObject("qualification", qualification);
-        modelAndView.addObject("id", id);
-
-        return modelAndView;
+        return "redirect:/shops";
     }
 
     @GetMapping("/create-carShop")
@@ -124,7 +98,7 @@ public class CarShopController {
     }
 
     @PostMapping("/create")
-    public String createCarShop(@ModelAttribute CreateCarShopViewModel createCarShopViewModel, BindingResult bindingResult) {
+    public String createCars(@ModelAttribute CreateCarShopViewModel createCarShopViewModel, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/shops/create-shop";
         }
@@ -150,6 +124,4 @@ public class CarShopController {
         carShopService.deleteShop(id);
         return "redirect:/cars";
     }
-
-
 }

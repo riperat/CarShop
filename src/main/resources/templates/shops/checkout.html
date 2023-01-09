@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments :: head"/>
+</head>
+<body class="standart">
+<header th:replace="fragments :: header"></header>
+<div class="col-6">
+    <div class="form-group">
+        <h4 th:text="'Car:  ' + ${car}"></h4>
+        <h4 th:text="'Hello and  ' + ${date}"></h4>
+        <h4 th:text="'Hello and  ' + ${qualification}"></h4>
+        <h4 th:text="'Price:  ' + ${price}"></h4>
+
+        <div id="mySidenav" class="linkB">
+            <a href="/shops/success">Checkout</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
