@@ -44,7 +44,7 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public String createCars(@Valid @ModelAttribute("car") CreateCarViewModel car, @AuthenticationPrincipal User user, BindingResult bindingResult) {
+    public String createCars(@Valid @ModelAttribute("car") CreateCarViewModel car, BindingResult bindingResult, @AuthenticationPrincipal User user) {
         if (bindingResult.hasErrors()) {
             return "/cars/create-car";
         }
@@ -66,7 +66,7 @@ public class CarController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateCars(@PathVariable long id, @AuthenticationPrincipal User user, @Valid @ModelAttribute("cars") UpdateCarViewModel car, BindingResult bindingResult) {
+    public String updateCars(@PathVariable long id, @AuthenticationPrincipal User user, @Valid @ModelAttribute("car") UpdateCarViewModel car, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "/cars/edit-car";
