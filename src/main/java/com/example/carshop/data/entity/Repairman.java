@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,4 +23,7 @@ public class Repairman extends BaseEntity {
 
     @ManyToMany(mappedBy = "repairman", fetch = FetchType.EAGER)
     private Set<Qualifications> qualifications;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")
+    private List<User> user;
 }

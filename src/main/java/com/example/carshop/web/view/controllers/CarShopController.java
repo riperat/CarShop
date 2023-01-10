@@ -6,7 +6,9 @@ import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.data.entity.User;
 import com.example.carshop.services.interfaces.*;
 import com.example.carshop.web.dto.CreateCarShopDTO;
+import com.example.carshop.web.dto.UpdateCarShopDTO;
 import com.example.carshop.web.view.model.CreateCarShopViewModel;
+import com.example.carshop.web.view.model.UpdateCarShopViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -139,11 +141,11 @@ public class CarShopController {
         return "/shops/edit-shop";
     }
 
-//    @PostMapping("/update/{id}")
-//    public String updateCars(@PathVariable long id, CarShop carShop) {
-//        carShopService.updateShop(id, carShop);
-//        return "redirect:/shops";
-//    }
+    @PostMapping("/update/{id}")
+    public String updateCars(@PathVariable long id, UpdateCarShopViewModel carShop) {
+        carShopService.updateShop(id, modelMapper.map(carShop, UpdateCarShopDTO.class));
+        return "redirect:/shops";
+    }
 
     @GetMapping("/delete/{id}")
     public String processProgramForm(@PathVariable int id) {

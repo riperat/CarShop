@@ -28,6 +28,10 @@ public class User extends BaseEntity implements UserDetails {
     @ManyToMany
     private Set<Car> car;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "repairmanID")
+    private Repairman repairman;
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

@@ -66,13 +66,16 @@ public class CarController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateCars(@PathVariable long id, @Valid @ModelAttribute("cars") UpdateCarViewModel car, BindingResult bindingResult) {
+    public String updateCars(@PathVariable long id, @AuthenticationPrincipal User user, @Valid @ModelAttribute("cars") UpdateCarViewModel car, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "/cars/edit-car";
         }
+        //for some reason cars cannot be upgraded so delete and create new car with same id
+        carService.deleteCar(id);
 
-        carService.updateCar(id, modelMapper.map(car, UpdateCarDTO.class));
+        car.setUser(Set.of(user));
+        carService.create(modelMapper.map(car, CreateCarDTO.class));
         return "redirect:/cars";
     }
 
