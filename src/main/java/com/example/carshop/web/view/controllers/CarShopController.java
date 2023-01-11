@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.example.carshop.util.HibernateUtil.getAllCarsByPreference;
 import static com.example.carshop.util.HibernateUtil.getAllQualifications;
 
 @Controller
@@ -64,6 +65,16 @@ public class CarShopController {
         return "/shops/shop-view";
     }
 
+    //ADMIN
+    @GetMapping("/adminShop-view")
+    public String shopView(Model model, @AuthenticationPrincipal User user) {
+        Repairman repairman = repairmanService.getRepairman(user.getRepairman().getId());
+        final List<Repairdone> repairs = repairdoneService.findAllByCarShop(repairman.getCarShop());
+        model.addAttribute("repairs", repairs);
+
+        return "/shops/adminShop-view";
+    }
+
     @GetMapping("/create-repair/{id}")
     public String showCreateRepairForm(Model model, @PathVariable Long id, @AuthenticationPrincipal User user) {
         final List<Repairman> repairmen = repairmanService.findAllByCarShop(carShopService.getShop(id));
@@ -78,8 +89,7 @@ public class CarShopController {
 
         model.addAttribute("username", user.getUsername());
 
-        final List<String> myCars = new ArrayList<>();
-        carService.getCarsByUser(user).forEach((car -> myCars.add(car.getRegistrationNumber())));
+        final List<String> myCars = getAllCarsByPreference(user, carService, carShopService , id);
 
         //Qualifications List
         final Set<String> qualificationNamesList = getAllQualifications(repairmen, qualificationsService);

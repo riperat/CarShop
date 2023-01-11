@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateCarShopViewModel {
-    private String name;
-    private String carPreferences;
+public class CreateQualViewModel {
+    String qualificationName;
+    Long price;
 }

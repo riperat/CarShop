@@ -1,17 +1,11 @@
 package com.example.carshop.web.api;
 
 import com.example.carshop.data.entity.CarShop;
-import com.example.carshop.data.entity.CarShop;
-import com.example.carshop.services.interfaces.CarService;
 import com.example.carshop.services.interfaces.CarShopService;
-import com.example.carshop.web.dto.CreateCarDTO;
 import com.example.carshop.web.dto.CreateCarShopDTO;
-import com.example.carshop.web.dto.UpdateCarDTO;
 import com.example.carshop.web.dto.UpdateCarShopDTO;
 import com.example.carshop.web.view.model.CreateCarShopViewModel;
-import com.example.carshop.web.view.model.CreateCarViewModel;
 import com.example.carshop.web.view.model.UpdateCarShopViewModel;
-import com.example.carshop.web.view.model.UpdateCarViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

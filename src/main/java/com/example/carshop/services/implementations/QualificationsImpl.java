@@ -4,7 +4,9 @@ import com.example.carshop.data.entity.Qualifications;
 import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.data.repository.QualificationsRepository;
 import com.example.carshop.services.interfaces.QualificationsService;
+import com.example.carshop.web.dto.CreateQualDTO;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class QualificationsImpl implements QualificationsService {
-
+    private final ModelMapper modelMapper;
     private final QualificationsRepository qualificationsRepository;
 
     @Override
@@ -37,8 +39,8 @@ public class QualificationsImpl implements QualificationsService {
     }
 
     @Override
-    public Qualifications create(Qualifications qualifications) {
-        return qualificationsRepository.save(qualifications);
+    public Qualifications create(CreateQualDTO qualifications) {
+        return qualificationsRepository.save(modelMapper.map(qualifications, Qualifications.class));
     }
 
     @Override

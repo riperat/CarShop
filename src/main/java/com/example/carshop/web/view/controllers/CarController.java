@@ -5,7 +5,6 @@ import com.example.carshop.data.entity.User;
 import com.example.carshop.services.interfaces.CarService;
 import com.example.carshop.services.interfaces.RepairdoneService;
 import com.example.carshop.web.dto.CreateCarDTO;
-import com.example.carshop.web.dto.UpdateCarDTO;
 import com.example.carshop.web.view.model.CreateCarViewModel;
 import com.example.carshop.web.view.model.UpdateCarViewModel;
 import lombok.AllArgsConstructor;

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="standart">
+<header th:replace="fragments :: header"></header>
+<div class="col-6">
+    <h2 class="def-text">Add shop:</h2>
+    <form action="#" th:action="@{/qual/create}" th:object="${qualification}" method="post">
+        <div class="form-group">
+            <label for="qualification">Add qualification </label>
+
+            <div class="form-group">
+                <label>Type: </label>
+                <input class="form-control" type="text" th:field="*{qualificationName}"
+                       placeholder="Type "
+                       id="Qualification Type: ">
+                <span class="text-danger" th:if="${#fields.hasErrors('qualificationName')}"
+                      th:errors="*{qualificationName}">Cannot be left blank</span>
+            </div>
+
+            <div class="form-group">
+                <label>Price: </label>
+                <input class="form-control" type="text" th:field="*{price}"
+                       placeholder="Price"
+                       id="price">
+                <span class="text-danger" th:if="${#fields.hasErrors('price')}"
+                      th:errors="*{price}">Price Error</span>
+            </div>
+
+            <button type="submit" class="button">Add</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

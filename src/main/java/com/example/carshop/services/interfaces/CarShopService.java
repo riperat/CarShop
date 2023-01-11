@@ -1,9 +1,7 @@
 package com.example.carshop.services.interfaces;
 
 import com.example.carshop.data.entity.CarShop;
-import com.example.carshop.web.dto.CreateCarDTO;
 import com.example.carshop.web.dto.CreateCarShopDTO;
-import com.example.carshop.web.dto.UpdateCarDTO;
 import com.example.carshop.web.dto.UpdateCarShopDTO;
 
 import java.util.List;
