@@ -46,8 +46,8 @@ public class CarShopServiceImpl implements CarShopService {
     }
 
     @Override
-    public List<CarShop> findAllByName(String name) {
-        return carShopRepository.findAllByCarPreferences(name);
+    public CarShop findByName(String name) {
+        return carShopRepository.findByName(name);
     }
 
     @Override

@@ -9,13 +9,9 @@
         <div class="form-group">
             <label for="qualification">Add qualification </label>
 
-            <div class="form-group">
-                <label>Type: </label>
-                <input class="form-control" type="text" th:field="*{qualificationName}"
-                       placeholder="Type "
-                       id="Qualification Type: ">
-                <span class="text-danger" th:if="${#fields.hasErrors('qualificationName')}"
-                      th:errors="*{qualificationName}">Cannot be left blank</span>
+            <div th:each="option, index : ${qualifications}">
+                <label>Select qualifications:</label>
+                <input type="checkbox" th:value="${option}" name="qualifications" th:text="${option}" />
             </div>
 
             <div class="form-group">

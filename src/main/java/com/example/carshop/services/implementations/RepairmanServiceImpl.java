@@ -1,10 +1,13 @@
 package com.example.carshop.services.implementations;
 
 import com.example.carshop.data.entity.CarShop;
+import com.example.carshop.data.entity.Qualifications;
 import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.data.repository.RepairmanRepository;
 import com.example.carshop.services.interfaces.RepairmanService;
+import com.example.carshop.web.dto.CreateRepairmanDTO;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

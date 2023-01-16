@@ -1,9 +1,6 @@
 package com.example.carshop.web.view.controllers;
 
-import com.example.carshop.data.entity.CarShop;
-import com.example.carshop.data.entity.Repairdone;
-import com.example.carshop.data.entity.Repairman;
-import com.example.carshop.data.entity.User;
+import com.example.carshop.data.entity.*;
 import com.example.carshop.services.interfaces.*;
 import com.example.carshop.web.dto.CreateCarShopDTO;
 import com.example.carshop.web.dto.UpdateCarShopDTO;
@@ -20,11 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.example.carshop.util.HibernateUtil.getAllCarsByPreference;
-import static com.example.carshop.util.HibernateUtil.getAllQualifications;
+import static com.example.carshop.util.HibernateUtil.*;
 
 @Controller
 @AllArgsConstructor
@@ -47,9 +44,7 @@ public class CarShopController {
 
     @GetMapping("/success")
     public ModelAndView success() {
-        ModelAndView modelAndView = new ModelAndView("/shops/success");
-
-        return modelAndView;
+        return new ModelAndView("/shops/success");
     }
 
     @GetMapping("/shop-view/{id}")
@@ -70,7 +65,11 @@ public class CarShopController {
     public String shopView(Model model, @AuthenticationPrincipal User user) {
         Repairman repairman = repairmanService.getRepairman(user.getRepairman().getId());
         final List<Repairdone> repairs = repairdoneService.findAllByCarShop(repairman.getCarShop());
+        final List<String> qualificationsListForRepair = getAllQualificationNamesByRepairdone(repairs);
+
+        model.addAttribute("shopName", repairman.getCarShop().getName());
         model.addAttribute("repairs", repairs);
+        model.addAttribute("qualList", qualificationsListForRepair);
 
         return "/shops/adminShop-view";
     }
@@ -78,18 +77,17 @@ public class CarShopController {
     @GetMapping("/create-repair/{id}")
     public String showCreateRepairForm(Model model, @PathVariable Long id, @AuthenticationPrincipal User user) {
         final List<Repairman> repairmen = repairmanService.findAllByCarShop(carShopService.getShop(id));
-        final List<Repairdone> repairs = new ArrayList<>();
         final List<Date> dates = new ArrayList<>();
 
         //Repairs List
-        repairs.addAll(repairdoneService.findAllByCarShop(carShopService.getShop(id)));
+        final List<Repairdone> repairs = new ArrayList<>(repairdoneService.findAllByCarShop(carShopService.getShop(id)));
         for (Repairdone rep : repairs) {
             dates.add(rep.getReservationDate());
         }
 
         model.addAttribute("username", user.getUsername());
 
-        final List<String> myCars = getAllCarsByPreference(user, carService, carShopService , id);
+        final List<String> myCars = getAllCarsByPreference(user, carService, carShopService, id);
 
         //Qualifications List
         final Set<String> qualificationNamesList = getAllQualifications(repairmen, qualificationsService);
@@ -103,27 +101,38 @@ public class CarShopController {
 
     @PostMapping("/create/{id}")
     public ModelAndView createRepair(@RequestParam("date") String date,
-                                     @RequestParam("car") String car, @RequestParam("qualification") String qualification, @PathVariable Long id) {
+                                     @RequestParam("car") String car, @RequestParam("qualifications") List<String> qualifications, @PathVariable Long id) {
 
         Repairdone repairdone = new Repairdone();
 
         repairdone.setReservationDate(java.sql.Date.valueOf(date));
         repairdone.setCar(carService.getCarByPlate(car));
         repairdone.setCarShop(carShopService.getShop(id));
-        repairdone.setQualifications(qualificationsService.getQualificationByName(qualification));
-        Long price = qualificationsService.getQualificationByName(qualification).getPrice();
+
+        Set<Qualifications> quals = new HashSet<>();
+        Long price = 0L;
+
+        for (String qual :
+                qualifications) {
+            quals.add(qualificationsService.getQualificationByName(qual));
+            price += qualificationsService.getQualificationByName(qual).getPrice();
+        }
+
         repairdone.setPrice(price);
+        repairdone.setQualifications(quals);
         repairdoneService.create(repairdone);
-        return checkout(price, car, date, qualification, id);
+
+
+        return checkout(price, car, date, qualifications, id);
     }
 
     @GetMapping("/checkout")
-    public ModelAndView checkout(Long price, String car, String date, String qualification, Long id) {
+    public ModelAndView checkout(Long price, String car, String date, List<String> qualifications, Long id) {
         ModelAndView modelAndView = new ModelAndView("/shops/checkout");
         modelAndView.addObject("price", price);
         modelAndView.addObject("car", carService.getCarByPlate(car).getBrand());
         modelAndView.addObject("date", date);
-        modelAndView.addObject("qualification", qualification);
+        modelAndView.addObject("qualification", qualifications);
         modelAndView.addObject("id", id);
 
         return modelAndView;

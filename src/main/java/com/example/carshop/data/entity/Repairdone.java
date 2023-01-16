@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,9 +25,9 @@ public class Repairdone extends BaseEntity {
     @JoinColumn(name = "carID")
     private Car car;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qualificationID")
-    private Qualifications qualifications;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "qualification_id")
+    private Set<Qualifications> qualifications;
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy/MM/dd")

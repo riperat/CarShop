@@ -1,9 +1,11 @@
 package com.example.carshop.web.view.controllers;
 
 import com.example.carshop.data.entity.Car;
+import com.example.carshop.data.entity.Repairdone;
 import com.example.carshop.data.entity.User;
 import com.example.carshop.services.interfaces.CarService;
 import com.example.carshop.services.interfaces.RepairdoneService;
+import com.example.carshop.util.UniqueRegistrationNumberValidator;
 import com.example.carshop.web.dto.CreateCarDTO;
 import com.example.carshop.web.view.model.CreateCarViewModel;
 import com.example.carshop.web.view.model.UpdateCarViewModel;
@@ -19,6 +21,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
+import static com.example.carshop.util.HibernateUtil.getAllQualificationNamesByRepairdone;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/cars")
@@ -28,6 +32,8 @@ public class CarController {
 
     private CarService carService;
     private RepairdoneService repairdoneService;
+
+    private UniqueRegistrationNumberValidator uniqueRegistrationNumberValidator;
 
     @GetMapping
     public String getCars(Model model, @AuthenticationPrincipal User user) {
@@ -44,6 +50,8 @@ public class CarController {
 
     @PostMapping("/create")
     public String createCars(@Valid @ModelAttribute("car") CreateCarViewModel car, BindingResult bindingResult, @AuthenticationPrincipal User user) {
+        uniqueRegistrationNumberValidator.validate(modelMapper.map(car, CreateCarDTO.class), bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "/cars/create-car";
         }
@@ -60,13 +68,22 @@ public class CarController {
 
     @GetMapping("/car-history/{id}")
     public String showCarHistoryForm(Model model, @PathVariable Long id) {
-        model.addAttribute("repairsDone", repairdoneService.findAllByCar(carService.getCar(id)));
+        List<Repairdone> repairdoneList = repairdoneService.findAllByCar(carService.getCar(id));
+
+
+        List<String> qualificationsListForRepair = getAllQualificationNamesByRepairdone(repairdoneList);
+
+
+        model.addAttribute("repairsDone", repairdoneList);
+        model.addAttribute("qualList", qualificationsListForRepair);
+
         return "/cars/car-history";
     }
 
     @PostMapping("/update/{id}")
     public String updateCars(@PathVariable long id, @AuthenticationPrincipal User user, @Valid @ModelAttribute("car") UpdateCarViewModel car, BindingResult bindingResult) {
 
+        uniqueRegistrationNumberValidator.validate(modelMapper.map(car, CreateCarDTO.class), bindingResult);
         if (bindingResult.hasErrors()) {
             return "/cars/edit-car";
         }

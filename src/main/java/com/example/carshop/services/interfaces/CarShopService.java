@@ -17,7 +17,7 @@ public interface CarShopService {
 
     void deleteShop(long id);
 
-    List<CarShop> findAllByName(String name);
+    CarShop findByName(String name);
 
     List<CarShop> findAllByCarPreferences(String carPreferences);
 }

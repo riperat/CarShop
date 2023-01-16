@@ -4,37 +4,25 @@
 <body class="standart">
 <header th:replace="fragments :: header"></header>
 <div class="col-6">
-    <h2 class="def-text">Add car:</h2>
-    <form action="#" th:action="@{/cars/create}" th:object="${car}" method="post">
+    <h2 class="def-text">Add repairman:</h2>
+    <form action="#" th:action="@{/repairmen/create}" th:object="${repairman}" method="post">
         <div class="form-group">
-            <label for="shop">Create Shop: </label>
-            <input class="form-control" type="text" th:field="*{name}" placeholder="Name" id="name">
-            #TODO add carshop list and qualifications list as a dropdown menu when clicked it adds to a list like in shop view
-            <div th:if="${qualifications.size()>0}">
-                <h3 class="def-text">Shop qualifications:</h3>
-                <table class="table-template">
-                    <tr th:each="qual : ${qualifications}">
-                        <td th:text="${qual}"></td>
-                    </tr>
-                </table>
-                <td><a class="button" th:href="@{'/shops/create-repair/'+${shopID}}">Make an appointment</a></td>
+            <label for="shop">Create Repairman: </label>
+
+            <label>Repairman name: </label>
+            <input class="form-control" type="text" th:field="*{name}" placeholder="Bezstrashniqt Joe" id="name">
+
+            <label for="date">Choose qualifications:</label>
+            <div th:each="option, index : ${qualifications}">
+                <input type="checkbox" th:value="${option}" name="qualifications" th:text="${option}"/>
             </div>
 
-            #List for currently chosen qualifications
-            <div class="col-6">
-                <h3 class="def-text" th:unless="${shops} and ${shops.size()}">There are no shops!</h3>
-                <table th:if="${shops.size()>0}" class="table-template">
-                    <th>Shop name</th>
-                    <th>Works with:</th>
-                    <tr th:each="shop : ${shops}">
-                        <td><a class="btn btn-info" th:href="@{'/shops/shop-view/'+${shop.id}}" th:text="${shop.name}"></a></td>
-                        <td th:text="${shop.carPreferences}"></td>
-                    </tr>
-                </table>
+            <label for="date">Choose Shop:</label>
+            <div th:each="option, index : ${shopName}">
+                <input type="radio" th:value="${option}" name="shopName" th:text="${option}"/>
             </div>
 
-
-            <button type="submit" class="button">Submit</button>
+            <button type="submit" class="button">Create</button>
         </div>
     </form>
 </div>

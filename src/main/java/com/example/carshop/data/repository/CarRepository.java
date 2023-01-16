@@ -13,4 +13,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     Car findByRegistrationNumber(String regNum);
 
     List<Car> findAllByUser(User user);
+
+    boolean existsByRegistrationNumber(String regNum);
 }

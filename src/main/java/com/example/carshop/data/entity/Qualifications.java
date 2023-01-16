@@ -19,9 +19,12 @@ public class Qualifications extends BaseEntity {
 
     Long price;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinColumn(name = "repairman_id")
     private Set<Repairman> repairman;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "qualifications")
-    private List<Repairdone> rep;
+    @ManyToMany
+    @JoinColumn(name = "repairdone_id")
+    private Set<Repairdone> repairdone;
+
 }

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
 
@@ -15,13 +16,15 @@ import java.util.Set;
 @Table(name = "repairman")
 public class Repairman extends BaseEntity {
 
+    @NotBlank
     String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carShopID")
     private CarShop carShop;
 
-    @ManyToMany(mappedBy = "repairman", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "qualification_id")
     private Set<Qualifications> qualifications;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairman")

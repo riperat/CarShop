@@ -1,22 +1,27 @@
 package com.example.carshop.web.view.controllers;
 
-import com.example.carshop.data.entity.CarShop;
+import com.example.carshop.data.entity.Qualifications;
+import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.services.interfaces.*;
-import com.example.carshop.web.dto.CreateCarShopDTO;
-import com.example.carshop.web.view.model.CreateCarShopViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static com.example.carshop.util.HibernateUtil.getAllQualificationNames;
+import static com.example.carshop.util.HibernateUtil.getAllShopsNames;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/repairman")
+@RequestMapping("/repairmen")
 public class RepairmanController {
     private final ModelMapper modelMapper;
 
@@ -27,22 +32,34 @@ public class RepairmanController {
     private QualificationsService qualificationsService;
 
 
-    @GetMapping("/create-carShop")
+    @GetMapping("/create-repairman")
     public String showCreateCarShopsForm(Model model) {
-        model.addAttribute("carShop", new CarShop());
-        return "/shops/create-shop";
+        final Set<String> qualificationNamesList = getAllQualificationNames(qualificationsService);
+        final Set<String> shopsNameList = getAllShopsNames(carShopService);
+
+        model.addAttribute("qualifications", qualificationNamesList);
+        model.addAttribute("shopName", shopsNameList);
+        model.addAttribute("repairman", new Repairman());
+
+        return "/repairmen/create-repairman";
     }
 
     @PostMapping("/create")
-    public String createCarShop(@ModelAttribute CreateCarShopViewModel createCarShopViewModel, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "/shops/create-shop";
+    public String createCarShop(@RequestParam("name") String name, @RequestParam("shopName") String shopName, @RequestParam("qualifications") List<String> qualifications) {
+        Repairman repairman = new Repairman();
+        Set<Qualifications> quals = new HashSet<>();
+        for (String qual :
+                qualifications) {
+            quals.add(qualificationsService.getQualificationByName(qual));
+
         }
 
-        carShopService.create(modelMapper.map(createCarShopViewModel, CreateCarShopDTO.class));
+        repairman.setCarShop(carShopService.findByName(shopName));
+        repairman.setName(name);
+        repairman.setQualifications(quals);
+        repairmanService.create(repairman);
         return "redirect:/shops";
     }
-
 
 
 }

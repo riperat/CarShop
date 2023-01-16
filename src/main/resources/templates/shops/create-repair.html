@@ -8,7 +8,7 @@
 <div class="col-6">
 
     <div class="form-group" id="dtp1">
-        <form action="#" th:action="@{/shops/create/__${id}__}" method="post">
+        <form action="#" th:action="@{/shops/create/__${id}__}" method="post" name="qualifications">
 
             <label for="date">Appointment day:</label>
             <input type="date" id="date" name="date">
@@ -18,10 +18,12 @@
                 <option th:each="option : ${myCars}" th:value="${option}" th:text="${option}"></option>
             </select>
 
-            <label for="date">Select Service:</label>
-            <select class="form-control" id="qualification" name="qualification">
-                <option th:each="option : ${qualifications}" th:value="${option}" th:text="${option}"></option>
-            </select>
+
+            <div th:each="option, index : ${qualifications}">
+                <label>Select service:</label>
+                <input type="checkbox" th:value="${option}" name="qualifications" th:text="${option}" />
+            </div>
+
 
             <button type="submit" class="button">To Checkout</button>
         </form>
@@ -34,20 +36,6 @@
         date.min = todayDate;
 
     </script>
-    <!--    JS and TS get attribute-->
-    <!--    <script th:inline="javascript">-->
-    <!--        var allDates = [[${dates}]];-->
-
-    <!--        // Handle date changes-->
-    <!--        date.addEventListener('input', function () {-->
-    <!--            let field = document.querySelector('#date');-->
-    <!--            let date = new Date(field.value);-->
-    <!--            date = date.toLocaleDateString('en-CA');-->
-
-
-    <!--            array1.forEach(element => console.log(element));-->
-    <!--        })-->
-    <!--    </script>-->
 </div>
 </body>
 </html>

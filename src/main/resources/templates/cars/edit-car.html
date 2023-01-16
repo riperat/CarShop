@@ -8,33 +8,37 @@
     <form action="#" th:action="@{/cars/update/{id}(id=${id})}" th:object="${car}" method="post">
         <div class="form-group">
             <div class="form-group">
+                <label>Brand: </label>
                 <input class="form-control" type="text" th:field="*{brand}" placeholder="Brand" id="brand">
                 <span class="text-danger" th:if="${#fields.hasErrors('brand')}"
-                      th:errors="*{brand}">Brand Error</span>
+                      th:errors="*{brand}">Cannot be left blank</span>
             </div>
 
             <div class="form-group">
+                <label>Model: </label>
                 <input class="form-control" type="text" th:field="*{model}" placeholder="Model" id="model">
                 <span class="text-danger" th:if="${#fields.hasErrors('model')}"
-                      th:errors="*{model}">Brand Error</span>
+                      th:errors="*{model}">Cannot be left blank</span>
             </div>
 
             <div class="form-group">
+                <label>Color: </label>
                 <input class="form-control" type="text" th:field="*{color}" placeholder="Color" id="color">
                 <span class="text-danger" th:if="${#fields.hasErrors('color')}"
-                      th:errors="*{color}">Color Error</span>
+                      th:errors="*{color}">Cannot be left blank</span>
             </div>
 
             <div class="form-group">
+                <label>Registration Number: </label>
                 <input class="form-control" type="text" th:field="*{registrationNumber}"
                        placeholder="Registration Number"
                        id="registrationNumber">
                 <span class="text-danger" th:if="${#fields.hasErrors('registrationNumber')}"
-                      th:errors="*{registrationNumber}">Registration Number Error</span>
+                      th:errors="*{registrationNumber}">Cannot be left blank</span>
             </div>
 
             <div class="form-group">
-                <label for="manufactureYear">Manufacture Year: </label>
+                <label>Manufacture Year: </label>
                 <input class="form-control" type="text" th:field="*{manufactureYear}"
                        placeholder="Manufacture Year"
                        id="manufactureYear">
