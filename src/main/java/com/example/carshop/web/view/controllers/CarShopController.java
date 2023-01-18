@@ -51,7 +51,7 @@ public class CarShopController {
     public String shopView(Repairdone repairdone, Model model, @PathVariable Long id) {
         final List<Repairman> repairmen = repairmanService.findAllByCarShop(carShopService.getShop(id));
 
-        final Set<String> qualificationNamesList = getAllQualifications(repairmen, qualificationsService);
+        final Set<String> qualificationNamesList = getAllQualifications(repairmen);
 
         model.addAttribute("qualifications", qualificationNamesList);
         model.addAttribute("repairdone", repairdone);
@@ -90,7 +90,7 @@ public class CarShopController {
         final List<String> myCars = getAllCarsByPreference(user, carService, carShopService, id);
 
         //Qualifications List
-        final Set<String> qualificationNamesList = getAllQualifications(repairmen, qualificationsService);
+        final Set<String> qualificationNamesList = getAllQualifications(repairmen);
 
         model.addAttribute("dates", dates);
         model.addAttribute("repair", new Repairdone());

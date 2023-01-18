@@ -5,15 +5,24 @@
 <header th:replace="fragments :: header"></header>
 <div class="col-6">
     <h2 class="def-text">Edit car:</h2>
-    <form action="#" th:action="@{/cars/update/{id}(id=${car.id})}" th:object="${car}" method="post">
+    <form action="#" th:action="@{/repairmen/update/{id}(id=${rep.id})}" th:object="${rep}" method="post">
         <div class="form-group">
+            <label for="shop">Edit Repairman: </label>
 
-            <label for="shop">Edit Shop: </label>
-            <input class="form-control" type="text" th:field="*{name}" placeholder="Name" id="name">
-            <input class="form-control" type="text" th:field="*{carPreferences}" placeholder="Car Preferences"
-                   id="carPreferences">
-            id="registrationNumber">
-            <button type="submit" class="button">Submit</button>
+            <label>Repairman name: </label>
+            <input class="form-control" type="text" th:field="*{name}" placeholder="Bezstrashniqt Joe" id="name">
+
+            <label for="date">Choose qualifications:</label>
+            <div th:each="option, index : ${qualifications}">
+                <input type="checkbox" th:value="${option}" name="qualifications" th:text="${option}"/>
+            </div>
+
+            <label for="date">Choose Shop:</label>
+            <div th:each="option, index : ${shopName}">
+                <input type="radio" th:value="${option}" name="shopName" th:text="${option}"/>
+            </div>
+
+            <button type="submit" class="button">Create</button>
         </div>
     </form>
 </div>

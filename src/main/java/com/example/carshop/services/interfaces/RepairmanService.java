@@ -4,6 +4,7 @@ import com.example.carshop.data.entity.CarShop;
 import com.example.carshop.data.entity.Qualifications;
 import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.web.dto.CreateRepairmanDTO;
+import com.example.carshop.web.dto.UpdateRepairmanDTO;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface RepairmanService {
 
     Repairman create(Repairman repairman);
 
-    Repairman updateRepairman(long id, Repairman repairman);
+    Repairman updateRepairman(long id, UpdateRepairmanDTO repairman);
 
     void deleteRepairman(long id);
 

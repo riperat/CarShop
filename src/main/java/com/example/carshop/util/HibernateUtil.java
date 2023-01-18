@@ -30,13 +30,11 @@ public class HibernateUtil {
     }
 
 
-    public static Set<String> getAllQualifications(List<Repairman> repairmen, QualificationsService qualificationsService) {
+    public static Set<String> getAllQualifications(List<Repairman> repairmen) {
         final Set<String> qualificationNamesList = new HashSet<>();
 
         for (Repairman rep : repairmen) {
-            final List<Qualifications> repairmanQS = qualificationsService.getQualificationByRepairman(rep);
-
-            repairmanQS.forEach((RQ) -> qualificationNamesList.add(RQ.getQualificationName()));
+            rep.getQualifications().forEach((qual) -> qualificationNamesList.add(qual.getQualificationName()));
         }
         return qualificationNamesList;
     }

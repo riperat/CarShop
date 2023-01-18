@@ -1,11 +1,10 @@
 package com.example.carshop.services.implementations;
 
 import com.example.carshop.data.entity.CarShop;
-import com.example.carshop.data.entity.Qualifications;
 import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.data.repository.RepairmanRepository;
 import com.example.carshop.services.interfaces.RepairmanService;
-import com.example.carshop.web.dto.CreateRepairmanDTO;
+import com.example.carshop.web.dto.UpdateRepairmanDTO;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class RepairmanServiceImpl implements RepairmanService {
-
+    private final ModelMapper modelMapper;
     private final RepairmanRepository repairmanRepository;
 
 
@@ -36,9 +35,10 @@ public class RepairmanServiceImpl implements RepairmanService {
     }
 
     @Override
-    public Repairman updateRepairman(long id, Repairman repairman) {
-        repairman.setId(id);
-        return repairmanRepository.save(repairman);
+    public Repairman updateRepairman(long id, UpdateRepairmanDTO repairman) {
+        Repairman rep = modelMapper.map(repairman, Repairman.class);
+        rep.setId(id);
+        return repairmanRepository.save(rep);
     }
 
     @Override

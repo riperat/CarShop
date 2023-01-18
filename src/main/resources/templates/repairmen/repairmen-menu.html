@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<body class="standart">
+<header th:replace="fragments :: header"></header>
+<h2 class="def-text">All Shops:</h2>
+
+<div class="col-6">
+    <h3 class="def-text" th:unless="${repairmen} and ${repairmen.size()}">There are no repairmen!</h3>
+    <table th:if="${repairmen.size()>0}" class="table-template">
+        <th>Name</th>
+        <th>Create</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <tr th:each="rep : ${repairmen}">
+            <td th:text="${rep.name}"></td>
+            <td><a class="btn btn-info" th:href="@{'/repairmen/create-repairman'+${rep.id}}">Create</a></td>
+            <td><a class="btn btn-info" th:href="@{'/repairmen/edit-repairman/'+${rep.id}}">Edit</a></td>
+            <td><a class="btn btn-danger" th:href="@{'/repairmen/delete/'+${rep.id}}">Delete</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
