@@ -1,10 +1,12 @@
 package com.example.carshop.services.implementations;
 
+import com.example.carshop.data.entity.Car;
 import com.example.carshop.data.entity.Qualifications;
 import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.data.repository.QualificationsRepository;
 import com.example.carshop.services.interfaces.QualificationsService;
 import com.example.carshop.web.dto.CreateQualDTO;
+import com.example.carshop.web.dto.UpdateQualDTO;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -44,8 +46,10 @@ public class QualificationsImpl implements QualificationsService {
     }
 
     @Override
-    public Qualifications updateQualification(long id, Qualifications qualifications) {
-        return qualificationsRepository.save(qualifications);
+    public Qualifications updateQualification(long id, UpdateQualDTO qualifications) {
+        Qualifications qual = modelMapper.map(qualifications, Qualifications.class);
+        qual.setId(id);
+        return qualificationsRepository.save(qual);
     }
 
     @Override

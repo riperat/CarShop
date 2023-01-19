@@ -3,6 +3,7 @@ package com.example.carshop.services.interfaces;
 import com.example.carshop.data.entity.Qualifications;
 import com.example.carshop.data.entity.Repairman;
 import com.example.carshop.web.dto.CreateQualDTO;
+import com.example.carshop.web.dto.UpdateQualDTO;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface QualificationsService {
 
     Qualifications create(CreateQualDTO qualifications);
 
-    Qualifications updateQualification(long id, Qualifications qualifications);
+    Qualifications updateQualification(long id, UpdateQualDTO qualifications);
 
     void deleteQualification(long id);
 }

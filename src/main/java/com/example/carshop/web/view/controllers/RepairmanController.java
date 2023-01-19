@@ -103,7 +103,7 @@ public class RepairmanController {
         repairman.setName(name);
         repairman.setQualifications(quals);
         repairmanService.create(repairman);
-        return "redirect:/cars";
+        return "redirect:/repairmen";
     }
 
     @GetMapping("/delete/{id}")

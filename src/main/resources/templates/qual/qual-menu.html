@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<body class="standart">
+<header th:replace="fragments :: header"></header>
+<h2 class="def-text">All Shops:</h2>
+
+<div class="col-6">
+    <h3 class="def-text" th:unless="${qualification} and ${qualification.size()}">There are no qualifications!</h3>
+    <table th:if="${qualification.size()>0}" class="table-template">
+        <th>Name</th>
+        <th>Price</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <tr th:each="qual : ${qualification}">
+            <td th:text="${qual.qualificationName}"></td>
+            <td th:text="${qual.price}"></td>
+            <td><a class="btn btn-info" th:href="@{'/qual/edit-qualification/'+${qual.id}}">Edit</a></td>
+            <td><a class="btn btn-danger" th:href="@{'/qual/delete/'+${qual.id}}">Delete</a></td>
+        </tr>
+    </table>
+
+    <a class="button" th:href="@{'/qual/create-qualification'}">Create qualification</a>
+</div>
+</body>
+</html>

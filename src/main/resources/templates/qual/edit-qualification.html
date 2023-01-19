@@ -5,14 +5,29 @@
 <header th:replace="fragments :: header"></header>
 <div class="col-6">
     <h2 class="def-text">Edit car:</h2>
-    <form action="#" th:action="@{/cars/update/{id}(id=${car.id})}" th:object="${car}" method="post">
+    <form action="#" th:action="@{/qual/update/{id}(id=${id})}" th:object="${qualification}" method="post">
         <div class="form-group">
-            #TODO live update repairmen
-            <label for="shop">Edit Shop: </label>
-            <input class="form-control" type="text" th:field="*{name}" placeholder="Name" id="name">
-            <input class="form-control" type="text" th:field="*{carPreferences}" placeholder="Car Preferences"
-                   id="carPreferences">
-            <button type="submit" class="button">Submit</button>
+            <label >Add qualification </label>
+
+            <label>Qualification Name: </label>
+            <div class="form-group">
+                <input class="form-control" type="text" th:field="*{qualificationName}"
+                       placeholder="Qualification Name"
+                       id="qualificationName">
+                <span class="text-danger" th:if="${#fields.hasErrors('qualificationName')}"
+                      th:errors="*{qualificationName}">Name Error</span>
+            </div>
+
+            <label>Price: </label>
+            <div class="form-group">
+                <input class="form-control" type="text" th:field="*{price}"
+                       placeholder="Price"
+                       id="price">
+                <span class="text-danger" th:if="${#fields.hasErrors('price')}"
+                      th:errors="*{price}">Price Error</span>
+            </div>
+
+            <button type="submit" class="button">Add</button>
         </div>
     </form>
 </div>

@@ -32,6 +32,17 @@
     background-color: #d6b076;
 }
 
+.button a{
+    background-color: #d2902a;
+    color: #ffffff;
+    padding: 11px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 5px 30px;
+    cursor: pointer;
+}
 .button {
     background-color: #d2902a;
     color: #ffffff;
